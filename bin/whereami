@@ -28,17 +28,35 @@ else
     ipv6_rdns=$(echo "$ipv6_json" | sed -n 's/.*"reverse_dns"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
 fi
 
+# Mode flag
+mode="base"
+if [ "$1" = "full" ]; then
+    mode="full"
+fi
+
 # Function to format output
 print_ip() {
     local label=$1
     local ip=$2
     local rdns=$3
+    local mode=$4
 
     if [ -n "$ip" ] && [ "$ip" != "Unavailable" ]; then
-        if [ -n "$rdns" ] && [ "$rdns" != "Unavailable" ] && [ "$rdns" != "No PTR record found" ]; then
-            echo -e "${BOLD_WHITE}${label}:${RESET} ${GOLD}${ip}${RESET} ${LIGHT_GREEN}(${rdns})${RESET}"
+        if [ "$mode" = "base" ]; then
+            # Base mode: IP + hostname (if valid) in parentheses
+            if [ -n "$rdns" ] && [ "$rdns" != "Unavailable" ] && [ "$rdns" != "No PTR record found" ]; then
+                echo -e "${BOLD_WHITE}${label}:${RESET} ${GOLD}${ip}${RESET} ${LIGHT_GREEN}(${rdns})${RESET}"
+            else
+                echo -e "${BOLD_WHITE}${label}:${RESET} ${GOLD}${ip}${RESET}"
+            fi
         else
+            # Full mode: IP on one row, rDNS on next row (always shown)
             echo -e "${BOLD_WHITE}${label}:${RESET} ${GOLD}${ip}${RESET}"
+            if [ -n "$rdns" ] && [ "$rdns" != "Unavailable" ]; then
+                echo -e "    ${LIGHT_GREEN}(${rdns})${RESET}"
+            else
+                echo -e "    ${LIGHT_GREEN}(Unavailable)${RESET}"
+            fi
         fi
     else
         echo -e "${BOLD_WHITE}${label}:${RESET} ${RED}Unavailable${RESET}"
@@ -46,5 +64,5 @@ print_ip() {
 }
 
 # Output
-print_ip "IPv4" "$ipv4_ip" "$ipv4_rdns"
-print_ip "IPv6" "$ipv6_ip" "$ipv6_rdns"
+print_ip "IPv4" "$ipv4_ip" "$ipv4_rdns" "$mode"
+print_ip "IPv6" "$ipv6_ip" "$ipv6_rdns" "$mode"
