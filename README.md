@@ -1,4 +1,4 @@
-# Terminal Client for the ORL Triangulation Station
+# Remote Terminal Client for the ORL Triangulation Station
 Use the AMI's [Triangulation Station](https://whereami.bestpoint.institute) in your terminal to quickly pinpoint your location on the internet. Outputs IPv4 &amp; IPv6 connection info. Useful for proxy and VPN testing.
 
 ## Installation
