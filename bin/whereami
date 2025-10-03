@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Colors
+BOLD_WHITE="\033[1;37m"
+GOLD="\033[0;33m"
+LIGHT_GREEN="\033[0;32m"
+RED="\033[0;31m"
+RESET="\033[0m"
+
+# Endpoints
+V4_ENDPOINT="https://ipv4.whereami.bestpoint.institute/"
+V6_ENDPOINT="https://ipv6.whereami.bestpoint.institute/"
+
+# Get JSON
+ipv4_json=$(curl -s "$V4_ENDPOINT")
+ipv6_json=$(curl -s "$V6_ENDPOINT")
+
+# Extract IP + rDNS (prefer jq if installed)
+if command -v jq >/dev/null 2>&1; then
+    ipv4_ip=$(echo "$ipv4_json" | jq -r '.ip')
+    ipv4_rdns=$(echo "$ipv4_json" | jq -r '.reverse_dns')
+    ipv6_ip=$(echo "$ipv6_json" | jq -r '.ip')
+    ipv6_rdns=$(echo "$ipv6_json" | jq -r '.reverse_dns')
+else
+    ipv4_ip=$(echo "$ipv4_json" | sed -n 's/.*"ip"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+    ipv4_rdns=$(echo "$ipv4_json" | sed -n 's/.*"reverse_dns"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+    ipv6_ip=$(echo "$ipv6_json" | sed -n 's/.*"ip"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+    ipv6_rdns=$(echo "$ipv6_json" | sed -n 's/.*"reverse_dns"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+fi
+
+# Function to format output
+print_ip() {
+    local label=$1
+    local ip=$2
+    local rdns=$3
+
+    if [ -n "$ip" ] && [ "$ip" != "Unavailable" ]; then
+        if [ -n "$rdns" ] && [ "$rdns" != "Unavailable" ] && [ "$rdns" != "No PTR record found" ]; then
+            echo -e "${BOLD_WHITE}${label}:${RESET} ${GOLD}${ip}${RESET} ${LIGHT_GREEN}(${rdns})${RESET}"
+        else
+            echo -e "${BOLD_WHITE}${label}:${RESET} ${GOLD}${ip}${RESET}"
+        fi
+    else
+        echo -e "${BOLD_WHITE}${label}:${RESET} ${RED}Unavailable${RESET}"
+    fi
+}
+
+# Output
+print_ip "IPv4" "$ipv4_ip" "$ipv4_rdns"
+print_ip "IPv6" "$ipv6_ip" "$ipv6_rdns"
