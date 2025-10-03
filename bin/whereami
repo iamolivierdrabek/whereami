@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# ORL Triangulation Beacon - Remote Client
+# More info at https://whereami.bestpoint.institute   
 
 # Colors
 BOLD_WHITE="\033[1;37m"
